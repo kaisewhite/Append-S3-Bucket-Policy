@@ -10,7 +10,6 @@ s3 = boto3.client("s3")
 
 def lambda_handler(event, context):
 
-    # For multiple bukcets
     buckets = ["grafana-metrics-test-bucket-kaise"]
 
     for bucket in buckets:
