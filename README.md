@@ -9,6 +9,8 @@ then use the policy.put to replace the whole policy.
 This lambda function does the following:
 
 1. Checks for an existing policy
-2. Checks for specific coniditions inside of the bucket policy
-3. If there is an existing policy it will append a new statement to the policy
-4. If there is not an existing policy it will create a new policy
+2. Checks for specific coniditions inside of the the existing policy.
+
+If the condition exists it will skip over the bucket
+If there is an existing policy it will append a new statement to the policy
+If there is not an existing policy it will create a new policy
