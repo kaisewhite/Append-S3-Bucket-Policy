@@ -11,7 +11,7 @@ s3Bucket = boto3.resource('s3')
 buckets = ["", "", ""]
 
 for bucket in buckets:
-    # The bucket policy we want to append or create
+    # The bucket policy we want to add/append or create
     ssl_statement = {
         "Sid": "AllowSSLRequestsOnly",
         "Action": "s3:*",
@@ -26,8 +26,7 @@ for bucket in buckets:
         print(f"The following bucket does not exist: {bucket}")
     else:
         try:
-
-            # Get the existing bucket policy if it exists
+            # Check for an existing bucket policy
             existing_policy: str = s3.get_bucket_policy(Bucket=bucket)
             statement: Dict[str, Any] = json.loads(existing_policy["Policy"])
 
