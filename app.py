@@ -8,7 +8,7 @@ import boto3
 s3 = boto3.client("s3")
 s3Bucket = boto3.resource('s3')
 
-buckets = ["oktacustomizations-devtargetbucket17cf160b-tjowc7zxfwme"]
+buckets = ["", "", ""]
 
 for bucket in buckets:
     # The bucket policy we want to append or create
@@ -31,8 +31,8 @@ for bucket in buckets:
             existing_policy: str = s3.get_bucket_policy(Bucket=bucket)
             statement: Dict[str, Any] = json.loads(existing_policy["Policy"])
 
-            # Save Existing Policy to JSON File for Rollback
-            with open(f"{bucket}.json", 'w', encoding='utf-8') as f:
+            # Save Existing Policy to JSON File
+            with open(f"original_policies_sandbox/{bucket}.json", 'w', encoding='utf-8') as f:
                 json.dump(statement, f, ensure_ascii=False, indent=4)
 
             existing_statement = statement.get("Statement", [])
@@ -58,7 +58,7 @@ for bucket in buckets:
                 # print(json.dumps(new_policy))
                 print(
                     f"Policy created for the following bucket: {bucket}")
-
+        # If the bucket has no existing policy at all we create our policy here
         except s3.exceptions.from_code("NoSuchBucketPolicy"):
             print(f"No bucket policy exists for {bucket}")
             print(f"Creating a new bucket policy for: {bucket}")
